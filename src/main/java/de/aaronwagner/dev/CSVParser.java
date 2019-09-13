@@ -4,6 +4,8 @@ import java.io.File;
 
 public class CSVParser {
 
+    private Parser parser;
+
     public CSVParser() {
 
     }
@@ -11,9 +13,11 @@ public class CSVParser {
     // weitere constructors mit mehr möglichkeiten
 
     public CSVParser(File csvfile) {
-
-        Parser parser = new Parser(csvfile);
-        parser.parse();
-
+        parser = new Parser(csvfile);
     }
+
+    public void parseFile() {
+        parser.parse();
+    }
+
 }
