@@ -63,16 +63,7 @@ public class ParserUtil {
             anschrift.setStadt(record.get(4));
 
             person.setAnschrift(anschrift);
-
-            System.out.println(record.get(5));
-
-
-            LocalDate date = LocalDate.parse(record.get(5), DateTimeFormatter.ofPattern("dd.MM.YYYY"));
-
-            System.out.println(date);
-
-
-            person.setGeburtsdatum(null);
+            person.setGeburtsdatum(LocalDate.parse(record.get(5), DateTimeFormatter.ofPattern("dd.MM.yyyy")));
 
             personen.add(person);
         }

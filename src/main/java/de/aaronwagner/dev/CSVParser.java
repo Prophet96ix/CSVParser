@@ -4,6 +4,8 @@ import de.aaronwagner.dev.model.Person;
 import lombok.Getter;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,16 +33,32 @@ public class CSVParser {
             parseFile();
 
         List<Person> matches = personen.stream()
-                .filter(person -> new String(person.getVorname() + " " + person.getNachname()).contains(name))
+                .filter(person -> new StringBuffer()
+                        .append(person.getVorname())
+                        .append(" ")
+                        .append(person.getNachname())
+                        .toString()
+                        .contains(name))
                 .collect(Collectors.toList());
 
         return matches;
     }
 
-    public Integer getPersonAge(Person person) {
+    /**
+     * Calculates a persons age
+     *
+     * @param person the person who's age should be calculated
+     * @param calculationBasis the time from which the calculation should be started, for example now or 10 years ago
+     * @return
+     */
+    public Integer getPersonAgeInYears(Person person, LocalDate calculationBasis) {
 
+        LocalDate birth = person.getGeburtsdatum();
 
-        return null;
+        Period period = Period.between(birth, calculationBasis);
+        int diff = period.getYears();
+
+        return Integer.valueOf(diff);
     }
 
 }
