@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ParserUtil {
@@ -61,7 +63,16 @@ public class ParserUtil {
             anschrift.setStadt(record.get(4));
 
             person.setAnschrift(anschrift);
-            person.setGeburtsdatum(null); //record.get(5));
+
+            System.out.println(record.get(5));
+
+
+            LocalDate date = LocalDate.parse(record.get(5), DateTimeFormatter.ofPattern("dd.MM.YYYY"));
+
+            System.out.println(date);
+
+
+            person.setGeburtsdatum(null);
 
             personen.add(person);
         }
