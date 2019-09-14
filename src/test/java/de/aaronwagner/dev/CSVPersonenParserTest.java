@@ -57,4 +57,9 @@ public class CSVPersonenParserTest {
 
     }
 
+    @Test
+    public void testFindPersonenByName() {
+        
+    }
+
 }
