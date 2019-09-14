@@ -1,31 +1,64 @@
 package de.aaronwagner.dev;
 
+import de.aaronwagner.dev.model.Anschrift;
 import de.aaronwagner.dev.model.Person;
+import de.aaronwagner.dev.type.Postleitzahl;
 import lombok.Getter;
 
 import java.io.File;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CSVParser {
+/**
+ * CSVParser
+ * <p>
+ * parses a csv file in the format of
+ * Nachname,Vorname,Straße,Postleitzahl,Stadt,Geburtsdatum
+ */
+public class CSVPersonenParser {
 
     @Getter
     private ParserUtil parserUtil;
+    @Getter
     private ArrayList<Person> personen;
+    private ArrayList<ArrayList<Object>> parsedList;
 
-    public CSVParser(File csvfile) {
+
+    public CSVPersonenParser(File csvfile) {
         parserUtil = new ParserUtil(csvfile);
     }
 
     public void parseFile() {
-        parserUtil.parse();
+        parsedList = parserUtil.parse();
+    }
 
-        // TODO parse sollte eine arrylist zurückgeben die generisch ist und es dann zu personen konvertiert wird
+    public void convertParsedListToPersonenData() {
 
-        personen = parserUtil.getPersonen();
+        personen = new ArrayList<>();
+
+        parsedList.stream().forEach(entry -> {
+            Person person = new Person();
+
+            person.setNachname((String) entry.get(0));
+
+            person.setVorname((String) entry.get(1));
+
+            Anschrift anschrift = new Anschrift();
+            anschrift.setStraße((String) entry.get(2));
+
+            Postleitzahl postleitzahl = new Postleitzahl();
+            anschrift.setPostleitzahl(postleitzahl);
+            anschrift.setStadt((String) entry.get(4));
+
+            person.setAnschrift(anschrift);
+            person.setGeburtsdatum(LocalDate.parse((CharSequence) entry.get(5), DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+
+            personen.add(person);
+        });
     }
 
     public List<Person> findPersonenByName(String name) {
@@ -47,7 +80,7 @@ public class CSVParser {
     /**
      * Calculates a persons age
      *
-     * @param person the person who's age should be calculated
+     * @param person           the person who's age should be calculated
      * @param calculationBasis the time from which the calculation should be started, for example now or 10 years ago
      * @return
      */

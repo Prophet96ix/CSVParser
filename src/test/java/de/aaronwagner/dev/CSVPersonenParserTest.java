@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.time.LocalDate;
 
-public class CSVParserTest {
+public class CSVPersonenParserTest {
 
     private File csv;
 
@@ -22,28 +22,30 @@ public class CSVParserTest {
     @Test
     public void testConstructorWithFile() {
         File csvMock = Mockito.mock(File.class);
-        CSVParser parser = new CSVParser(csvMock);
+        CSVPersonenParser parser = new CSVPersonenParser(csvMock);
         Assert.assertNotNull(parser);
         Assert.assertNotNull(parser.getParserUtil());
     }
 
     @Test
     public void testWithRealFile() {
-        CSVParser parser = new CSVParser(csv);
+        CSVPersonenParser parser = new CSVPersonenParser(csv);
         Assert.assertNotNull(parser);
 
         parser.parseFile();
+        parser.convertParsedListToPersonenData();
 
-        Assert.assertNotNull(parser.getParserUtil().getPersonen());
-        Assert.assertTrue(parser.getParserUtil().getPersonen().size() > 0);
+        Assert.assertNotNull(parser.getPersonen());
+        Assert.assertTrue(parser.getPersonen().size() > 0);
 
     }
 
     // TODO Negativtest
     @Test
     public void testAgeCalculation() {
-        CSVParser parser = new CSVParser(csv);
+        CSVPersonenParser parser = new CSVPersonenParser(csv);
         parser.parseFile();
+        parser.convertParsedListToPersonenData();
 
         Person person = Mockito.mock(Person.class);
         LocalDate birth = LocalDate.of(1977,01,01);

@@ -1,8 +1,6 @@
 package de.aaronwagner.dev;
 
-import de.aaronwagner.dev.model.Anschrift;
 import de.aaronwagner.dev.model.Person;
-import de.aaronwagner.dev.type.Postleitzahl;
 import lombok.Getter;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -13,21 +11,17 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ParserUtil {
 
     private final File filetoParse;
-    @Getter
-    private ArrayList<Person> personen;
 
     public ParserUtil(File csvfile) {
         filetoParse = csvfile;
     }
 
-    public void parse() {
+    public ArrayList<ArrayList<Object>> parse() {
 
         Reader reader = null;
 
@@ -47,25 +41,19 @@ public class ParserUtil {
             }
         }
 
-        personen = new ArrayList();
+        ArrayList<ArrayList<Object>> list = new ArrayList<>();
 
         // Accessing Values by Column Index
         for (CSVRecord record : csvParser) {
-            Person person = new Person();
-            person.setNachname(record.get(0));
-            person.setVorname(record.get(1));
+            ArrayList<Object> data = new ArrayList<>();
 
-            Anschrift anschrift = new Anschrift();
-            anschrift.setStraße(record.get(2));
+            for (int i = 0; i < record.size(); i++) {
+                data.add(record.get(i));
+            }
 
-            Postleitzahl postleitzahl = new Postleitzahl();
-            anschrift.setPostleitzahl(postleitzahl);
-            anschrift.setStadt(record.get(4));
-
-            person.setAnschrift(anschrift);
-            person.setGeburtsdatum(LocalDate.parse(record.get(5), DateTimeFormatter.ofPattern("dd.MM.yyyy")));
-
-            personen.add(person);
+            list.add(data);
         }
+
+        return list;
     }
 }
