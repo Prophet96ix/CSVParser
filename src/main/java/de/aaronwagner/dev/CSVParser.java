@@ -1,23 +1,20 @@
 package de.aaronwagner.dev;
 
+import lombok.Getter;
+
 import java.io.File;
 
 public class CSVParser {
 
-    private Parser parser;
-
-    public CSVParser() {
-
-    }
-
-    // weitere constructors mit mehr möglichkeiten
+    @Getter
+    private ParserUtil parserUtil;
 
     public CSVParser(File csvfile) {
-        parser = new Parser(csvfile);
+        parserUtil = new ParserUtil(csvfile);
     }
 
     public void parseFile() {
-        parser.parse();
+        parserUtil.parse();
     }
 
 }

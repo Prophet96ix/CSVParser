@@ -10,6 +10,6 @@ public class Person {
     private String nachname;
     private String vorname;
     private Date geburtsdatum;
-    private Anschrift anschriftModel;
+    private Anschrift anschrift;
 
 }
