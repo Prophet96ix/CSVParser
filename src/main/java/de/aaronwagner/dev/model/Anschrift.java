@@ -6,8 +6,7 @@ import lombok.Data;
 @Data
 public class Anschrift {
 
-    private String straße;
-    // plz als eigenen typ
+    private String strasse;
     private Postleitzahl postleitzahl;
     private String stadt;
 }

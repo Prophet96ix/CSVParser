@@ -6,6 +6,7 @@ import de.aaronwagner.dev.type.Postleitzahl;
 import lombok.Getter;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -33,7 +34,11 @@ public class CSVPersonenParser {
     }
 
     public void parseFile() {
-        parsedList = parserUtil.parse();
+        try {
+            parsedList = parserUtil.parse();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void convertParsedListToPersonenData() {
@@ -48,9 +53,10 @@ public class CSVPersonenParser {
             person.setVorname((String) entry.get(1));
 
             Anschrift anschrift = new Anschrift();
-            anschrift.setStraße((String) entry.get(2));
+            anschrift.setStrasse((String) entry.get(2));
 
             Postleitzahl postleitzahl = new Postleitzahl();
+            postleitzahl.setZipcode(Integer.valueOf((String) entry.get(3)));
             anschrift.setPostleitzahl(postleitzahl);
             anschrift.setStadt((String) entry.get(4));
 
@@ -80,7 +86,7 @@ public class CSVPersonenParser {
     /**
      * Calculates a persons age
      *
-     * @param person           the person who's age should be calculated
+     * @param person           the person whose age should be calculated
      * @param calculationBasis the time from which the calculation should be started, for example now or 10 years ago
      * @return
      */

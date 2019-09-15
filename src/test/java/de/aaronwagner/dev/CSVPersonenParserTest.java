@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.util.List;
 
 public class CSVPersonenParserTest {
 
@@ -37,10 +38,8 @@ public class CSVPersonenParserTest {
 
         Assert.assertNotNull(parser.getPersonen());
         Assert.assertTrue(parser.getPersonen().size() > 0);
-
     }
 
-    // TODO Negativtest
     @Test
     public void testAgeCalculation() {
         CSVPersonenParser parser = new CSVPersonenParser(csv);
@@ -54,12 +53,20 @@ public class CSVPersonenParserTest {
         Mockito.when(person.getGeburtsdatum()).thenReturn(birth);
 
         Assert.assertTrue(parser.getPersonAgeInYears(person, now).compareTo(Integer.valueOf(42)) == 0);
-
     }
 
     @Test
     public void testFindPersonenByName() {
-        
+        CSVPersonenParser parser = new CSVPersonenParser(csv);
+        parser.parseFile();
+        parser.convertParsedListToPersonenData();
+
+        List<Person> matches = parser.findPersonenByName("Susann");
+
+        Assert.assertNotNull(matches);
+        Assert.assertTrue(!matches.isEmpty());
+        Assert.assertTrue(matches.size() == 1);
+
     }
 
 }

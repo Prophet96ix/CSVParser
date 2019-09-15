@@ -15,30 +15,22 @@ import java.util.ArrayList;
 
 public class ParserUtil {
 
+    @Getter
     private final File filetoParse;
 
     public ParserUtil(File csvfile) {
         filetoParse = csvfile;
     }
 
-    public ArrayList<ArrayList<Object>> parse() {
+    public ArrayList<ArrayList<Object>> parse() throws IOException {
 
         Reader reader = null;
-
-        try {
-            reader = Files.newBufferedReader(Paths.get(filetoParse.getAbsolutePath()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         CSVParser csvParser = null;
 
+        reader = Files.newBufferedReader(Paths.get(filetoParse.getAbsolutePath()));
+
         if (reader != null) {
-            try {
-                csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
         }
 
         ArrayList<ArrayList<Object>> list = new ArrayList<>();
