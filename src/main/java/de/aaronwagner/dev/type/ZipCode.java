@@ -7,9 +7,9 @@ public class ZipCode {
     @Getter
     private String zip;
 
-    public boolean setZip(String zipcode) {
-        if (zipcode.length() == 5 && zipcode.matches("-?\\d+(\\.\\d+)?")) {
-            zip = zipcode;
+    public boolean setZip(String zipCode) {
+        if (zipCode.length() == 5 && zipCode.matches("-?\\d+(\\.\\d+)?")) {
+            zip = zipCode;
             return true;
         }
         return false;

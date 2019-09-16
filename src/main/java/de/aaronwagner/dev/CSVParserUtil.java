@@ -1,6 +1,5 @@
 package de.aaronwagner.dev;
 
-import de.aaronwagner.dev.model.Person;
 import lombok.Getter;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -16,33 +15,24 @@ import java.util.ArrayList;
 public class CSVParserUtil {
 
     @Getter
-    private final File filetoParse;
+    private final File fileToParse;
 
-    public CSVParserUtil(File csvfile) {
-        filetoParse = csvfile;
+    public CSVParserUtil(File csvFile) {
+        fileToParse = csvFile;
     }
 
     public ArrayList<ArrayList<String>> parse() throws IOException {
 
-        Reader reader = null;
-        CSVParser csvParser = null;
-
-        reader = Files.newBufferedReader(Paths.get(filetoParse.getAbsolutePath()));
-
-        if (reader != null) {
-            csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
-        }
-
         ArrayList<ArrayList<String>> list = new ArrayList<>();
+        Reader reader = Files.newBufferedReader(Paths.get(fileToParse.getAbsolutePath()));
+        CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
 
-        // Accessing Values by Column Index
+        // accessing values by column index
         for (CSVRecord record : csvParser) {
             ArrayList<String> data = new ArrayList<>();
-
             for (int i = 0; i < record.size(); i++) {
                 data.add(record.get(i));
             }
-
             list.add(data);
         }
 
