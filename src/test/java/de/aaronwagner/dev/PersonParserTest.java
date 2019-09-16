@@ -27,5 +27,4 @@ public class PersonParserTest {
         Assert.assertNotNull(parser);
         Assert.assertTrue(parser.getParsedPersonList().size() > 0);
     }
-
 }

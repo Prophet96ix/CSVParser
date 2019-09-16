@@ -32,5 +32,4 @@ public class CSVParserUtilTest {
         File invalidFile = new File("xxx");
         Assert.assertThrows(IOException.class, () -> new CSVParserUtil(invalidFile));
     }
-
 }

@@ -11,5 +11,4 @@ public class Person {
     private String vorname;
     private LocalDate geburtsdatum;
     private Address anschrift;
-
 }

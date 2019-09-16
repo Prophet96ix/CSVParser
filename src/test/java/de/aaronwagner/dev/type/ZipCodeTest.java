@@ -30,5 +30,4 @@ public class ZipCodeTest {
         ZipCode postleitzahl = new ZipCode();
         Assert.assertFalse(postleitzahl.setZip(invalidZipCode3));
     }
-
 }
