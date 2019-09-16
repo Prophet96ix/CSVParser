@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ParserUtilTest {
+public class CSVParserUtilTest {
 
     private File csv;
 
@@ -22,14 +22,14 @@ public class ParserUtilTest {
     @Test
     public void testConstructor() {
         File csvmock = Mockito.mock(File.class);
-        ParserUtil parserUtil = new ParserUtil(csvmock);
+        CSVParserUtil parserUtil = new CSVParserUtil(csvmock);
         Assert.assertEquals(csvmock, parserUtil.getFiletoParse());
     }
 
     @Test
     public void testParse() throws IOException {
-        ParserUtil parserUtil = new ParserUtil(csv);
-        ArrayList<ArrayList<Object>> output = parserUtil.parse();
+        CSVParserUtil parserUtil = new CSVParserUtil(csv);
+        ArrayList<ArrayList<String>> output = parserUtil.parse();
         Assert.assertNotNull(output);
         Assert.assertTrue(output.size() > 0);
     }
@@ -37,7 +37,7 @@ public class ParserUtilTest {
     @Test
     public void testParseWithInvalidFile() {
         File invalidFile = new File("xxx");
-        ParserUtil parserUtil = new ParserUtil(invalidFile);
+        CSVParserUtil parserUtil = new CSVParserUtil(invalidFile);
         Assert.assertThrows(IOException.class, () -> parserUtil.parse());
     }
 

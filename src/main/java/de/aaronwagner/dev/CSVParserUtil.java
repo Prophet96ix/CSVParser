@@ -13,16 +13,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class ParserUtil {
+public class CSVParserUtil {
 
     @Getter
     private final File filetoParse;
 
-    public ParserUtil(File csvfile) {
+    public CSVParserUtil(File csvfile) {
         filetoParse = csvfile;
     }
 
-    public ArrayList<ArrayList<Object>> parse() throws IOException {
+    public ArrayList<ArrayList<String>> parse() throws IOException {
 
         Reader reader = null;
         CSVParser csvParser = null;
@@ -33,11 +33,11 @@ public class ParserUtil {
             csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
         }
 
-        ArrayList<ArrayList<Object>> list = new ArrayList<>();
+        ArrayList<ArrayList<String>> list = new ArrayList<>();
 
         // Accessing Values by Column Index
         for (CSVRecord record : csvParser) {
-            ArrayList<Object> data = new ArrayList<>();
+            ArrayList<String> data = new ArrayList<>();
 
             for (int i = 0; i < record.size(); i++) {
                 data.add(record.get(i));

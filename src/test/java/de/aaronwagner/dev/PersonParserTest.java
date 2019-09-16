@@ -7,10 +7,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
-public class CSVPersonenParserTest {
+public class PersonParserTest {
 
     private File csv;
 
@@ -21,30 +22,29 @@ public class CSVPersonenParserTest {
     }
 
     @Test
-    public void testConstructorWithFile() {
+    public void testCreationOfParserUtil() {
         File csvMock = Mockito.mock(File.class);
-        CSVPersonenParser parser = new CSVPersonenParser(csvMock);
-        Assert.assertNotNull(parser);
+        PersonParser parser = new PersonParser(csvMock);
         Assert.assertNotNull(parser.getParserUtil());
     }
 
     @Test
-    public void testWithRealFile() {
-        CSVPersonenParser parser = new CSVPersonenParser(csv);
+    public void testCreationOfPersonListWithRealCSV() throws IOException {
+        PersonParser parser = new PersonParser(csv);
         Assert.assertNotNull(parser);
 
         parser.parseFile();
-        parser.convertParsedListToPersonenData();
+        parser.convertParsedListToPersonData();
 
-        Assert.assertNotNull(parser.getPersonen());
-        Assert.assertTrue(parser.getPersonen().size() > 0);
+        Assert.assertNotNull(parser.getPersonList());
+        Assert.assertTrue(parser.getPersonList().size() > 0);
     }
 
     @Test
-    public void testAgeCalculation() {
-        CSVPersonenParser parser = new CSVPersonenParser(csv);
+    public void testAgeCalculation() throws IOException {
+        PersonParser parser = new PersonParser(csv);
         parser.parseFile();
-        parser.convertParsedListToPersonenData();
+        parser.convertParsedListToPersonData();
 
         Person person = Mockito.mock(Person.class);
         LocalDate birth = LocalDate.of(1977,01,01);
@@ -56,12 +56,12 @@ public class CSVPersonenParserTest {
     }
 
     @Test
-    public void testFindPersonenByName() {
-        CSVPersonenParser parser = new CSVPersonenParser(csv);
+    public void testFindPersonenByName() throws IOException {
+        PersonParser parser = new PersonParser(csv);
         parser.parseFile();
-        parser.convertParsedListToPersonenData();
+        parser.convertParsedListToPersonData();
 
-        List<Person> matches = parser.findPersonenByName("Susann");
+        List<Person> matches = parser.findPersonsByName("Susann");
 
         Assert.assertNotNull(matches);
         Assert.assertTrue(!matches.isEmpty());

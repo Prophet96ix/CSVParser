@@ -1,12 +1,12 @@
 package de.aaronwagner.dev.model;
 
-import de.aaronwagner.dev.type.Postleitzahl;
+import de.aaronwagner.dev.type.ZipCode;
 import lombok.Data;
 
 @Data
-public class Anschrift {
+public class Address {
 
     private String strasse;
-    private Postleitzahl postleitzahl;
+    private ZipCode postleitzahl;
     private String stadt;
 }
