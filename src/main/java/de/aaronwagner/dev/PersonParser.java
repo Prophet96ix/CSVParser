@@ -22,13 +22,12 @@ import java.util.stream.Collectors;
  */
 public class PersonParser {
 
-    @Getter
     private CSVParserUtil parserUtil;
     @Getter
     private ArrayList<Person> personList;
     private ArrayList<ArrayList<String>> parsedList;
 
-    public PersonParser(File csvfile) {
+    public PersonParser(File csvfile) throws IOException {
         parserUtil = new CSVParserUtil(csvfile);
     }
 
@@ -88,7 +87,7 @@ public class PersonParser {
             }
         }
 
-        List<Person> matches = personList.stream()
+        return personList.stream()
                 .filter(person -> new StringBuffer()
                         .append(person.getVorname())
                         .append(" ")
@@ -96,8 +95,6 @@ public class PersonParser {
                         .toString()
                         .contains(name))
                 .collect(Collectors.toList());
-
-        return matches;
     }
 
     /**

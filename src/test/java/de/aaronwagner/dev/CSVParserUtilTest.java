@@ -20,13 +20,6 @@ public class CSVParserUtilTest {
     }
 
     @Test
-    public void testConstructor() {
-        File csvmock = Mockito.mock(File.class);
-        CSVParserUtil parserUtil = new CSVParserUtil(csvmock);
-        Assert.assertEquals(csvmock, parserUtil.getFileToParse());
-    }
-
-    @Test
     public void testParse() throws IOException {
         CSVParserUtil parserUtil = new CSVParserUtil(csv);
         ArrayList<ArrayList<String>> output = parserUtil.parse();
@@ -35,10 +28,9 @@ public class CSVParserUtilTest {
     }
 
     @Test
-    public void testParseWithInvalidFile() {
+    public void testParseWithInvalidFile() throws IOException {
         File invalidFile = new File("xxx");
-        CSVParserUtil parserUtil = new CSVParserUtil(invalidFile);
-        Assert.assertThrows(IOException.class, parserUtil::parse);
+        Assert.assertThrows(IOException.class, () -> new CSVParserUtil(invalidFile));
     }
 
 }

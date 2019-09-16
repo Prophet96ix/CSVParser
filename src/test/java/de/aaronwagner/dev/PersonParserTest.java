@@ -22,13 +22,6 @@ public class PersonParserTest {
     }
 
     @Test
-    public void testCreationOfParserUtil() {
-        File csvMock = Mockito.mock(File.class);
-        PersonParser parser = new PersonParser(csvMock);
-        Assert.assertNotNull(parser.getParserUtil());
-    }
-
-    @Test
     public void testCreationOfPersonListWithRealCSV() throws IOException {
         PersonParser parser = new PersonParser(csv);
         Assert.assertNotNull(parser);
