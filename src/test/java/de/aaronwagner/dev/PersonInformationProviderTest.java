@@ -23,6 +23,16 @@ public class PersonInformationProviderTest {
         Assert.assertNotNull(csv);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testIllegalArgumentNull() {
+        PersonInformationProvider personInformationProvider = new PersonInformationProvider(null);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testIllegalArgumentEmpty() {
+        PersonInformationProvider personInformationProvider = new PersonInformationProvider(new ArrayList<>());
+    }
+
     @Test
     public void testAgeCalculation() throws IOException {
         PersonParser parser = new PersonParser(csv);
