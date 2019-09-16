@@ -23,28 +23,28 @@ import java.util.stream.Collectors;
 public class PersonParser {
 
     private CSVParserUtil parserUtil;
-    @Getter
-    private ArrayList<Person> personList;
     private ArrayList<ArrayList<String>> parsedList;
 
     public PersonParser(File csvfile) throws IOException {
         parserUtil = new CSVParserUtil(csvfile);
+        parseFile();
     }
 
     /**
      * parses the provided csv to a list that can be further processed
      * @throws IOException
      */
-    public void parseFile() throws IOException {
+    private void parseFile() throws IOException {
         parsedList = parserUtil.parse();
     }
 
     /**
      * converts the parsed csv list to a Person-List that provides all the persons information
+     * @return parsed ArrayList of Persons
      */
-    public void convertParsedListToPersonData() {
+    public ArrayList<Person> getParsedPersonList() {
 
-        personList = new ArrayList<>();
+        ArrayList<Person> personList = new ArrayList<>();
 
         parsedList.stream().forEach(entry -> {
             Person person = new Person();
@@ -69,49 +69,7 @@ public class PersonParser {
 
             personList.add(person);
         });
+
+        return personList;
     }
-
-    /**
-     * searches all the persons by their name
-     * @param name the name of a person
-     * @return a list of possible matches
-     */
-    public List<Person> findPersonsByName(String name) {
-        if (personList == null || personList.isEmpty()) {
-            try {
-                parseFile();
-                convertParsedListToPersonData();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return new ArrayList<>();
-            }
-        }
-
-        return personList.stream()
-                .filter(person -> new StringBuffer()
-                        .append(person.getVorname())
-                        .append(" ")
-                        .append(person.getNachname())
-                        .toString()
-                        .contains(name))
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * Calculates a persons age
-     *
-     * @param person           the person whose age should be calculated
-     * @param calculationBasis the time from which the calculation should be started, for example now or 10 years ago
-     * @return age in years
-     */
-    public Integer getPersonAgeInYears(Person person, LocalDate calculationBasis) {
-
-        LocalDate birth = person.getGeburtsdatum();
-
-        Period period = Period.between(birth, calculationBasis);
-        int diff = period.getYears();
-
-        return Integer.valueOf(diff);
-    }
-
 }

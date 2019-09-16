@@ -25,41 +25,7 @@ public class PersonParserTest {
     public void testCreationOfPersonListWithRealCSV() throws IOException {
         PersonParser parser = new PersonParser(csv);
         Assert.assertNotNull(parser);
-
-        parser.parseFile();
-        parser.convertParsedListToPersonData();
-
-        Assert.assertNotNull(parser.getPersonList());
-        Assert.assertTrue(parser.getPersonList().size() > 0);
-    }
-
-    @Test
-    public void testAgeCalculation() throws IOException {
-        PersonParser parser = new PersonParser(csv);
-        parser.parseFile();
-        parser.convertParsedListToPersonData();
-
-        Person person = Mockito.mock(Person.class);
-        LocalDate birth = LocalDate.of(1977,01,01);
-        LocalDate now = LocalDate.of(2019,01,01);
-
-        Mockito.when(person.getGeburtsdatum()).thenReturn(birth);
-
-        Assert.assertTrue(parser.getPersonAgeInYears(person, now).compareTo(Integer.valueOf(42)) == 0);
-    }
-
-    @Test
-    public void testFindPersonenByName() throws IOException {
-        PersonParser parser = new PersonParser(csv);
-        parser.parseFile();
-        parser.convertParsedListToPersonData();
-
-        List<Person> matches = parser.findPersonsByName("Susann");
-
-        Assert.assertNotNull(matches);
-        Assert.assertTrue(!matches.isEmpty());
-        Assert.assertTrue(matches.size() == 1);
-
+        Assert.assertTrue(parser.getParsedPersonList().size() > 0);
     }
 
 }
