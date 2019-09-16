@@ -81,6 +81,7 @@ public class PersonParser {
         if (personList == null || personList.isEmpty()) {
             try {
                 parseFile();
+                convertParsedListToPersonData();
             } catch (IOException e) {
                 e.printStackTrace();
                 return new ArrayList<>();
