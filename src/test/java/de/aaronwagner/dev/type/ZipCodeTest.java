@@ -6,10 +6,10 @@ import org.testng.annotations.Test;
 @Test
 public class ZipCodeTest {
 
-    String validZipCode = "45663";
-    String invalidZipCode1 = "";
-    String invalidZipCode2 = "4566";
-    String invalidZipCode3 = "ESSEN";
+    private String validZipCode = "45663";
+    private String invalidZipCode1 = "";
+    private String invalidZipCode2 = "4566";
+    private String invalidZipCode3 = "ESSEN";
 
     public void testWhenValidZipCodeThenReturnTrue() {
         ZipCode postleitzahl = new ZipCode();

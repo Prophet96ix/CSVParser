@@ -52,6 +52,16 @@ public class PersonInformationProvider {
 
         return Integer.valueOf(diff);
     }
+
+    /**
+     * Calculates a persons age
+     *
+     * @param person the person whose age should be calculated
+     * @return age in years
+     */
+    public Integer getPersonAgeInYears(Person person) {
+        return getPersonAgeInYears(person, LocalDate.now());
+    }
 }
 
 
