@@ -11,22 +11,22 @@ public class ZipCodeTest {
     String invalidZipCode2 = "4566";
     String invalidZipCode3 = "ESSEN";
 
-    public void testValidZipCode() {
+    public void testWhenValidZipCodeThenReturnTrue() {
         ZipCode postleitzahl = new ZipCode();
         Assert.assertTrue(postleitzahl.setZip(validZipCode));
     }
 
-    public void testInvalidEmptyZipCode() {
+    public void testWhenInvalidEmptyZipCodeThenReturnFalse() {
         ZipCode postleitzahl = new ZipCode();
         Assert.assertFalse(postleitzahl.setZip(invalidZipCode1));
     }
 
-    public void testInvalidShortZipCode() {
+    public void testWhenInvalidShortZipCodeThenReturnFalse() {
         ZipCode postleitzahl = new ZipCode();
         Assert.assertFalse(postleitzahl.setZip(invalidZipCode2));
     }
 
-    public void testInvalidAlphanumericZipCode() {
+    public void testWhenInvalidAlphaZipCodeThenReturnFalse() {
         ZipCode postleitzahl = new ZipCode();
         Assert.assertFalse(postleitzahl.setZip(invalidZipCode3));
     }
